@@ -1,7 +1,5 @@
 let api = "http://localhost:8080/api/todo";
 
-let fetchMovieInfo = async (url) => fetch(url).then((res) => res.json());
-
 async function completeToDoList(elem) {
   let id = elem.id;
   let response = await fetch(api + "/" + id, {
