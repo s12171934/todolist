@@ -1,47 +1,46 @@
-let num = 3;
+let api = 'http://localhost:8080/api/todo';
 
-let data = [
-    {
-        "id" : 1,
-        "todo" : "123",
-        "stat" : ""
-    },
-    {
-        "id" : 2,
-        "todo" : "456",
-        "stat" : ""
-    }
-];
+let fetchMovieInfo = async (url) => fetch(url).then((res) => res.json());
 
-function completeToDoList(elem){
-    console.log(elem)
-    if(elem.className == ""){
-        data.filter(list => list.id == elem.id)[0].stat = "complete";
-    } else{
-        data.filter(list => list.id == elem.id)[0].stat = "";
-    }
+async function completeToDoList(elem){
+    let id = elem.id;
+    await fetch(api,{
+        method:'PUT',
+        headers:{
+            'Content-Type': 'text;charset=utf-8'
+        },
+        body:id
+    });
 }
 
-function deleteToDoList(elem){
-    let idx = data.findIndex(list => list.id == elem.id);
-    console.log(idx);
-    data.splice(idx,idx + 1);;
+async function deleteToDoList(elem){
+    let id = elem.id;
+    await fetch(api,{
+        method:'DELETE',
+        headers:{
+            'Content-Type': 'text;charset=utf-8'
+        },
+        body:id
+    });
+    
 }
 
-function addToDoList(elem){
+async function addToDoList(elem){
     let list = elem.firstElementChild.value;
     if(list === "") return;
     elem.firstElementChild.value = "";
-    
-    data.push({
-        "id" : num++,
-        "todo" : list,
-        "stat" : ""
-    })
+    await fetch(api,{
+        method:'POST',
+        headers:{
+            'Content-Type': 'text;charset=utf-8'
+        },
+        body:list
+    });
     
 }
 
-function showToDoList(){
+async function showToDoList(){
+    let data = await fetch(api).then((res) => res.json());
     document.querySelector(".todos").innerHTML = "";
     for(list of data){
         let li = document.createElement("li");
