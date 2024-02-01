@@ -59,6 +59,11 @@ form {
     padding: 1rem 2rem;
 }
 
+.todos li.complete {
+    color : grey;
+    text-decoration-line: line-through;
+}
+
 small {
     color: #b5b5b5;
     margin-top: 3rem;
