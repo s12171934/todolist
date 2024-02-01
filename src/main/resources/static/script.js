@@ -4,18 +4,19 @@ let fetchMovieInfo = async (url) => fetch(url).then((res) => res.json());
 
 async function completeToDoList(elem) {
   let id = elem.id;
-  await fetch(api + "/" + id, {
+  let response = await fetch(api + "/" + id, {
     method: "PUT",
-  });
-  showToDoList();
+  }).then(async (res) => await res.text());
+  console.log(response)
+  elem.className = String(response);
 }
 
 async function deleteToDoList(elem) {
   let id = elem.id;
-  await fetch(api + "/" + id, {
+  let response = await fetch(api + "/" + id, {
     method: "DELETE",
-  });
-  showToDoList();
+  }).then(async (res) => await res.text());
+  if(response === "success") document.getElementById(id).remove();
 }
 
 async function addToDoList(elem) {
@@ -25,25 +26,29 @@ async function addToDoList(elem) {
   let todo = {
     todo : list,
   };
-  await fetch(api + "/add", {
+  let response = await fetch(api, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify(todo),
-  });
-  showToDoList();
+  }).then(async (res) => await res.json());
+  showToDoList(response);
 }
 
-async function showToDoList() {
-  let data = await fetch(api).then((res) => res.json());
-  document.querySelector(".todos").innerHTML = "";
-  for (list of data) {
-    let li = document.createElement("li");
+async function showToDoList(list){
+  let li = document.createElement("li");
     li.id = list.id;
     li.className = list.stat;
     li.textContent = list.todo;
     document.querySelector(".todos").append(li);
+}
+
+async function showAll() {
+  let data = await fetch(api).then((res) => res.json());
+  document.querySelector(".todos").innerHTML = "";
+  for (list of data) {
+    showToDoList(list);
   }
 }
 
@@ -64,4 +69,4 @@ document.querySelector(".todos").addEventListener("mousedown", (event) => {
   }
 });
 
-showToDoList();
+showAll();

@@ -21,25 +21,32 @@ public class ToDoController {
         return new ArrayList<>(todolist.values());
     }
 
-    @PostMapping("/add")
-    public void addToDoList(@RequestBody ToDo todo){
-        int id = Collections.max(todolist.keySet()) + 1;
+    @PostMapping
+    public ToDo addToDoList(@RequestBody ToDo todo){
+        int id = 0;
+        try {
+            id = Collections.max(todolist.keySet()) + 1;
+        } catch (Exception e){}
         todo.setId(id);
         todolist.put(id,todo);
+        return todo;
     }
 
     @PutMapping("/{id}")
-    public void changeStat(@PathVariable int id){
+    public String changeStat(@PathVariable int id){
         ToDo todo = todolist.get(id);
         if(todo.getStat().isEmpty()){
             todo.setStat("complete");
+            return "complete";
         } else{
             todo.setStat("");
+            return "";
         }
     }
 
     @DeleteMapping("/{id}")
-    public void deleteToDoList(@PathVariable int id){
+    public String deleteToDoList(@PathVariable int id){
         todolist.remove(id);
+        return "success";
     }
 }
