@@ -1,20 +1,19 @@
 let api = "http://localhost:8080/api/todo";
 
-async function completeToDoList(elem) {
-  let id = elem.id;
-  let response = await fetch(api + "/" + id, {
-    method: "PUT",
-  }).then(async (res) => await res.text());
-  console.log(response)
-  elem.className = String(response);
+async function showToDoList(list) {
+  let li = document.createElement("li");
+  li.id = list.id;
+  li.className = list.stat;
+  li.textContent = list.todo;
+  document.querySelector(".todos").append(li);
 }
 
-async function deleteToDoList(elem) {
-  let id = elem.id;
-  let response = await fetch(api + "/" + id, {
-    method: "DELETE",
-  }).then(async (res) => await res.text());
-  if(response === "success") document.getElementById(id).remove();
+async function showAll() {
+  let data = await fetch(api).then((res) => res.json());
+  document.querySelector(".todos").innerHTML = "";
+  for (list of data) {
+    showToDoList(list);
+  }
 }
 
 async function addToDoList(elem) {
@@ -22,7 +21,7 @@ async function addToDoList(elem) {
   if (list === "") return;
   elem.firstElementChild.value = "";
   let todo = {
-    todo : list,
+    todo: list,
   };
   let response = await fetch(api, {
     method: "POST",
@@ -34,20 +33,21 @@ async function addToDoList(elem) {
   showToDoList(response);
 }
 
-async function showToDoList(list){
-  let li = document.createElement("li");
-    li.id = list.id;
-    li.className = list.stat;
-    li.textContent = list.todo;
-    document.querySelector(".todos").append(li);
+async function deleteToDoList(elem) {
+  let id = elem.id;
+  let response = await fetch(api + "/" + id, {
+    method: "DELETE",
+  }).then(async (res) => await res.text());
+  if (response === "success") document.getElementById(id).remove();
 }
 
-async function showAll() {
-  let data = await fetch(api).then((res) => res.json());
-  document.querySelector(".todos").innerHTML = "";
-  for (list of data) {
-    showToDoList(list);
-  }
+async function completeToDoList(elem) {
+  let id = elem.id;
+  let response = await fetch(api + "/" + id, {
+    method: "PUT",
+  }).then(async (res) => await res.text());
+  console.log(response);
+  elem.className = String(response);
 }
 
 document.querySelector("form").addEventListener("submit", (event) => {
