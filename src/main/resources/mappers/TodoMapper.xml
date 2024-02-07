@@ -3,38 +3,27 @@
 
 <mapper namespace="com.todo.todolist.mappers.TodoMapper">
     <sql id="requestColumns">
-        content, done
-    </sql>
-    <sql id="responseColumns">
-        id, content, done, created_at as createdAt, modified_at as modifiedAt
+        member_id, content
     </sql>
 
-    <resultMap id="todoResultMap" type="com.todo.todolist.dto.ResponseTodo">
-        <id property="id" column="id" />
-        <result property="content" column="content"/>
-        <result property="done" column="done"/>
-        <result property="createdAt" column="created_at"/>
-        <result property="modifiedAt" column="modified_at"/>
-    </resultMap>
-
-    <select id="findAll" resultType="com.todo.todolist.dto.ResponseTodo">
-        SELECT * FROM todo
+    <select id="findAll" parameterType="Long" resultType="com.todo.todolist.dto.Todo">
+        SELECT * FROM todo WHERE member_id = #{memberId}
     </select>
 
-    <select id="findById" parameterType="Long" resultType="com.todo.todolist.dto.ResponseTodo">
+    <select id="findById" parameterType="Long" resultType="com.todo.todolist.dto.Todo">
         SELECT * FROM todo WHERE id = #{id}
     </select>
-    <select id="findRecent" resultType="com.todo.todolist.dto.ResponseTodo">
+    <select id="findRecent" resultType="com.todo.todolist.dto.Todo">
         SELECT * FROM todo WHERE id = (SELECT MAX(id) FROM todo)
     </select>
 
-    <insert id="save" parameterType="com.todo.todolist.dto.ResponseTodo">
+    <insert id="save" parameterType="com.todo.todolist.dto.Todo">
         INSERT INTO todo (
         <include refid="requestColumns" />
         ) VALUES (
-        #{content}
-        , #{done}
-        )
+        #{memberId}
+        , #{content}
+        );
         <selectKey keyProperty="id" resultType="Long">
             SELECT LAST_INSERT_ID()
         </selectKey>

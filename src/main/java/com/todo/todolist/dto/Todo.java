@@ -7,8 +7,9 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class ResponseTodo {
+public class Todo {
     Long id;
+    Long memberId;
     String content;
     boolean done;
     LocalDateTime createdAt;

@@ -1,8 +1,7 @@
-package com.todo.todolist;
+package com.todo.todolist.controller;
 
-import com.todo.todolist.dto.RequestTodo;
-import com.todo.todolist.dto.ResponseTodo;
-import com.todo.todolist.login.dto.Member;
+import com.todo.todolist.dto.Todo;
+import com.todo.todolist.dto.Member;
 import com.todo.todolist.mappers.TodoMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +15,9 @@ public class TodoController {
     @Autowired
     TodoMapper todoMapper;
     @GetMapping
-    public ArrayList<ResponseTodo> showToDoList(){
-        return (ArrayList<ResponseTodo>) todoMapper.findAll();
+    public ArrayList<Todo> showToDoList(HttpServletRequest request){
+        Long memberId = ((Member)request.getSession().getAttribute("member")).getId();
+        return (ArrayList<Todo>) todoMapper.findAll(memberId);
     }
     @GetMapping("/user")
     public Member responseMember(HttpServletRequest request){
@@ -26,7 +26,8 @@ public class TodoController {
     }
 
     @PostMapping
-    public RequestTodo addToDoList(@RequestBody RequestTodo todo){
+    public Todo addToDoList(@RequestBody Todo todo, HttpServletRequest request){
+        todo.setMemberId(((Member)request.getSession().getAttribute("member")).getId());
         todoMapper.save(todo);
         return todo;
     }

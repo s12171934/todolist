@@ -76,5 +76,9 @@ document.querySelector(".todos").addEventListener("mousedown", (event) => {
   }
 });
 
+document.querySelector(".logout").addEventListener("click",(event) => {
+  location.href = "/logout";
+})
+
 showAll();
 getUserId();

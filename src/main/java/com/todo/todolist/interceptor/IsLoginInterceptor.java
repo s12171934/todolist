@@ -1,4 +1,4 @@
-package com.todo.todolist.login;
+package com.todo.todolist.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
