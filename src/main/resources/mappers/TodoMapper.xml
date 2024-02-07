@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.todo.todolist.mappers.TodoMapper">
+    <sql id="requestColumns">
+        content, done
+    </sql>
+    <sql id="responseColumns">
+        id, content, done, created_at as createdAt, modified_at as modifiedAt
+    </sql>
+
+    <resultMap id="todoResultMap" type="com.todo.todolist.dto.ResponseTodo">
+        <id property="id" column="id" />
+        <result property="content" column="content"/>
+        <result property="done" column="done"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="modifiedAt" column="modified_at"/>
+    </resultMap>
+
+    <select id="findAll" resultType="com.todo.todolist.dto.ResponseTodo">
+        SELECT * FROM todo
+    </select>
+
+    <select id="findById" parameterType="Long" resultType="com.todo.todolist.dto.ResponseTodo">
+        SELECT * FROM todo WHERE id = #{id}
+    </select>
+    <select id="findRecent" resultType="com.todo.todolist.dto.ResponseTodo">
+        SELECT * FROM todo WHERE id = (SELECT MAX(id) FROM todo)
+    </select>
+
+    <insert id="save" parameterType="com.todo.todolist.dto.ResponseTodo">
+        INSERT INTO todo (
+        <include refid="requestColumns" />
+        ) VALUES (
+        #{content}
+        , #{done}
+        )
+        <selectKey keyProperty="id" resultType="Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <update id="update" parameterType="Long">
+        UPDATE todo
+        SET
+            done = !done
+        WHERE
+            id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        DELETE
+        FROM
+            todo
+        WHERE
+            id = #{id}
+    </delete>
+</mapper>
