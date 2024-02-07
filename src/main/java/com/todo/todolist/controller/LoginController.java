@@ -15,15 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.HashMap;
-
 @Controller
 @RequestMapping("")
 public class LoginController {
     @Autowired
     MemberMapper memberMapper;
-    static HashMap<String,Member> memberList = new HashMap<>();
-
     @GetMapping("/login")
     public String loginForm(){
         return "redirect:/index.html";
@@ -43,16 +39,17 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@Valid LoginForm loginForm, Errors errors, HttpServletRequest request, HttpServletResponse response){
+        Member dbMember = memberMapper.getMemberByEmail(loginForm.getEmail());
         boolean isFail = errors.hasErrors()
-                || memberMapper.getMemberByEmail(loginForm.getEmail()) == null
-                || !memberMapper.getMemberByEmail(loginForm.getEmail()).getPassword().equals(loginForm.getPassword());
+                || dbMember == null
+                || !dbMember.getPassword().equals(loginForm.getPassword());
 
         response.addCookie(saveEmail(loginForm.getEmail(),loginForm.isSaveEmail() && !isFail));
 
         if(isFail){
             return "redirect:/fail";
         } else{
-            request.getSession().setAttribute("member",memberMapper.getMemberByEmail(loginForm.getEmail()));
+            request.getSession().setAttribute("member",dbMember);
             return "redirect:/success";
         }
     }
