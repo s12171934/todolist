@@ -1,5 +1,6 @@
 package com.todo.todolist;
 
+import com.todo.todolist.dto.RequestTodo;
 import com.todo.todolist.dto.ResponseTodo;
 import com.todo.todolist.mappers.TodoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,33 +17,22 @@ public class TodoController {
     public ArrayList<ResponseTodo> showToDoList(){
         return (ArrayList<ResponseTodo>) todoMapper.findAll();
     }
-/*
+
     @PostMapping
-    public Todo addToDoList(@RequestBody Todo todo){
-        int id = 0;
-        try {
-            id = Collections.max(todolist.keySet()) + 1;
-        } catch (Exception e){}
-        todo.setId(id);
-        todolist.put(id,todo);
+    public RequestTodo addToDoList(@RequestBody RequestTodo todo){
+        todoMapper.save(todo);
         return todo;
     }
 
     @PutMapping("/{id}")
-    public String changeStat(@PathVariable int id){
-        Todo todo = todolist.get(id);
-        if(todo.isDone()){
-            todo.setDone(true);
-        } else{
-            todo.setDone(false);
-        }
-        return todo.isDone();
+    public boolean changeStat(@PathVariable Long id){
+        todoMapper.update(id);
+        return todoMapper.findById(id).isDone();
     }
 
     @DeleteMapping("/{id}")
-    public String deleteToDoList(@PathVariable int id){
-        todolist.remove(id);
+    public String deleteToDoList(@PathVariable Long id){
+        todoMapper.delete(id);
         return "success";
     }
- */
 }

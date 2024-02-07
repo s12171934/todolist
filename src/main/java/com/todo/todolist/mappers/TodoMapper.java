@@ -10,7 +10,8 @@ import java.util.List;
 public interface TodoMapper {
     List<ResponseTodo> findAll();
     ResponseTodo findById(Long id);
+    ResponseTodo findRecent();
     void save(RequestTodo todo);
-    void update(RequestTodo toDo);
+    void update(Long id);
     void delete(Long id);
 }

@@ -8,5 +8,5 @@ import lombok.Setter;
 public class RequestTodo {
     Long id;
     String content;
-    boolean done;
+    boolean done = false;
 }

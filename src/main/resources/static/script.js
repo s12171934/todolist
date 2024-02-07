@@ -3,7 +3,7 @@ let api = "http://localhost:8080/api/todo";
 async function showToDoList(list) {
   let li = document.createElement("li");
   li.id = list.id;
-  li.className = list.done ? "complete" : "";
+  li.className = (list.done ? "complete" : "");
   li.textContent = list.content;
   document.querySelector(".todos").append(li);
 }
@@ -47,7 +47,7 @@ async function completeToDoList(elem) {
     method: "PUT",
   }).then(async (res) => await res.text());
   console.log(response);
-  elem.className = String(response);
+  elem.className = String(response) == "true" ? "complete" : "";
 }
 
 document.querySelector("form").addEventListener("submit", (event) => {
