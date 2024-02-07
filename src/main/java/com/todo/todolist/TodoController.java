@@ -2,7 +2,9 @@ package com.todo.todolist;
 
 import com.todo.todolist.dto.RequestTodo;
 import com.todo.todolist.dto.ResponseTodo;
+import com.todo.todolist.login.dto.Member;
 import com.todo.todolist.mappers.TodoMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,11 @@ public class TodoController {
     @GetMapping
     public ArrayList<ResponseTodo> showToDoList(){
         return (ArrayList<ResponseTodo>) todoMapper.findAll();
+    }
+    @GetMapping("/user")
+    public Member responseMember(HttpServletRequest request){
+        Member member = (Member)request.getSession().getAttribute("member");
+        return member;
     }
 
     @PostMapping

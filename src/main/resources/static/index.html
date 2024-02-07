@@ -1,29 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Todo List</title>
-  </head>
-  <body>
-    <h1>todo-list</h1>
-    <form id="form">
-      <input
-        type="text"
-        class="input"
-        id="input"
-        placeholder="Enter your todo"
-        autocomplete="off"
-      />
-
-      <ul class="todos" id="todos"></ul>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>로그인 폼</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="title">
+        LOGIN FORM
+    </div>
+    <form action="/login" method="POST">
+        <div class="field">
+            <input name="email" id="email" type="text" required>
+            <label>이메일 주소</label>
+        </div>
+        <div class="field">
+            <input name="password" type="password" required>
+            <label>비밀번호</label>
+        </div>
+        <div class="content">
+            <div class="checkbox">
+                <input name="saveEmail" value=true type="checkbox" id="remember-me">
+                <label for="remember-me">이메일 주소 저장</label>
+            </div>
+        </div>
+        <div class="field">
+            <input type="submit" value="로그인">
+        </div>
+        <div class="signup-link">
+            회원이 아니신가요? <a href="/signup"> 회원가입 </a>
+        </div>
     </form>
-    <small
-      >왼쪽 클릭: 항목 완료 <br />
-      오른쪽 클릭: 해당 항목 삭제</small
-    >
-
-    <script src="script.js"></script>
-  </body>
+</div>
+</body>
+<script src="script.js"></script>
 </html>
