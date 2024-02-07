@@ -3,8 +3,8 @@ let api = "http://localhost:8080/api/todo";
 async function showToDoList(list) {
   let li = document.createElement("li");
   li.id = list.id;
-  li.className = list.stat;
-  li.textContent = list.todo;
+  li.className = list.done ? "complete" : "";
+  li.textContent = list.content;
   document.querySelector(".todos").append(li);
 }
 
@@ -21,7 +21,7 @@ async function addToDoList(elem) {
   if (list === "") return;
   elem.firstElementChild.value = "";
   let todo = {
-    todo: list,
+    content: list,
   };
   let response = await fetch(api, {
     method: "POST",
