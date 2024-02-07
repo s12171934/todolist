@@ -21,8 +21,7 @@ public class TodoController {
     }
     @GetMapping("/user")
     public Member responseMember(HttpServletRequest request){
-        Member member = (Member)request.getSession().getAttribute("member");
-        return member;
+        return (Member)request.getSession().getAttribute("member");
     }
 
     @PostMapping
