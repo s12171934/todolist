@@ -1,41 +1,60 @@
 <!DOCTYPE html>
 <!-- Designined by CodingLab - youtube.com/codinglabyt -->
 <html lang="en" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <title> 회원가입 폼 </title>
-    <link rel="stylesheet" href="../css/signup.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-<div class="container">
-    <div class="title">Sign Up</div>
-    <div class="content">
+  <head>
+    <meta charset="UTF-8" />
+    <title>회원가입 폼</title>
+    <link rel="stylesheet" href="../css/signup.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">Sign Up</div>
+      <div class="content">
         <form action="/signup" method="POST">
-            <div class="user-details">
-                <div class="input-box">
-                    <span class="details">이메일</span>
-                    <input name="email" type="text" placeholder="이메일 주소를 입력하세요" required>
-                </div>
-                <div class="input-box">
-                    <span class="details">이름</span>
-                    <input name="name" type="text" placeholder="이름을 입력하세요" required>
-                </div>
-                <div class="input-box">
-                    <span class="details">비밀번호</span>
-                    <input name="password" type="password" placeholder="비밀번호를 입력하세요" required>
-                </div>
-                <div class="input-box">
-                    <span class="details">비밀번호 확인</span>
-                    <input name="passwordCheck" type="password" placeholder="비밀번호를 확인해주세요" required>
-                </div>
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">이메일</span>
+              <input
+                name="email"
+                type="text"
+                placeholder="이메일 주소를 입력하세요"
+                required
+              />
             </div>
-            <div class="button">
-                <input type="submit" value="가입하기">
+            <div class="input-box">
+              <span class="details">이름</span>
+              <input
+                name="name"
+                type="text"
+                placeholder="이름을 입력하세요"
+                required
+              />
             </div>
+            <div class="input-box">
+              <span class="details">비밀번호</span>
+              <input
+                name="password"
+                type="password"
+                placeholder="비밀번호를 입력하세요"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <span class="details">비밀번호 확인</span>
+              <input
+                name="passwordCheck"
+                type="password"
+                placeholder="비밀번호를 확인해주세요"
+                required
+              />
+            </div>
+          </div>
+          <div class="button">
+            <input type="submit" value="가입하기" />
+          </div>
         </form>
+      </div>
     </div>
-</div>
-
-</body>
+  </body>
 </html>

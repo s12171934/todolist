@@ -1,10 +1,10 @@
 let api = "http://localhost:8080/api/todo";
 
-async function getUserId(){
-  let data = await fetch(api + "/user").then((res)=>res.json());
+async function getUserId() {
+  let data = await fetch(api + "/user").then((res) => res.json());
   let userName = data.name;
   let spans = document.querySelectorAll(".id");
-  for(let span of spans){
+  for (let span of spans) {
     span.innerHTML = userName;
   }
 }
@@ -12,7 +12,7 @@ async function getUserId(){
 async function showToDoList(list) {
   let li = document.createElement("li");
   li.id = list.id;
-  li.className = (list.done ? "complete" : "");
+  li.className = list.done ? "complete" : "";
   li.textContent = list.content;
   document.querySelector(".todos").append(li);
 }
@@ -76,9 +76,9 @@ document.querySelector(".todos").addEventListener("mousedown", (event) => {
   }
 });
 
-document.querySelector(".logout").addEventListener("click",(event) => {
+document.querySelector(".logout").addEventListener("click", (event) => {
   location.href = "/logout";
-})
+});
 
 showAll();
 getUserId();
