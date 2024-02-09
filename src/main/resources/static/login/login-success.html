@@ -3,10 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <title>Title</title>
+    <link rel="stylesheet" href="../css/login.css" />
   </head>
   <body>
-    <h1>로그인 성공</h1>
-    <a href="/todo"><h2>To-Do-List</h2></a>
-    <a href="/logout"><h2>로그아웃 하러가기</h2></a>
+    <div class="wrapper">
+      <div class="title">로그인 성공</div>
+      <br>
+      <form action="/todo">
+        <div class="field">
+          <input type="submit" value="TodoList" />
+        </div>
+      </form>
+      <form action="/logout">
+        <div class="field">
+          <input type="submit" value="로그아웃" />
+        </div>
+      </form>
+    </div>
   </body>
 </html>

@@ -3,11 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <title>Title</title>
+    <link rel="stylesheet" href="../css/login.css" />
   </head>
   <body>
-    <h1>정말로 로그아웃 하시겠습니까?</h1>
-    <form action="/logout" method="POST">
-      <button type="submit">로그아웃</button>
-    </form>
+    <div class="wrapper" style="width: 600px;">
+      <div class="title">정말로 로그아웃 하시겠습니까?</div>
+      <br>
+      <form action="/logout" method="POST">
+        <div class="field">
+          <input type="submit" value="로그아웃" />
+        </div>
+      </form>
+    </div>
   </body>
 </html>
+
