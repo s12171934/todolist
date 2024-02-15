@@ -72,7 +72,6 @@ export default {
       .get(`/api/todo`)
       .then((res) => {
         this.todos = res.data;
-        console.log(this.todos);
       })
       .catch((res) => {
         console.error(res);
