@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { EventBus } from '@/main';
+
 export default {
   data() {
     return {
@@ -52,6 +54,7 @@ export default {
         .then((res) => {
           if(res.data === "success"){
             this.loginFail = false;
+            this.$cookies.set('islogin',true)
             this.$router.push({path: "/todos"})
           } else{
             this.loginFail = true;

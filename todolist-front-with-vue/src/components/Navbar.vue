@@ -1,6 +1,6 @@
 <template>
   <ul class="nav-links">
-    <li><a href="/login">Login</a></li>
+    <li v-if="this.$cookies.isKey('islogin')"><a href="/login">Login</a></li>
     <li><a @click="logout">Logout</a></li>
     <li class="center"><a href="/signup">SignUp</a></li>
     <li class="upward"><a href="/todos">Todos</a></li>
@@ -8,6 +8,7 @@
 </template>
 
 <script>
+
 export default {
   methods: {
     logout(){
