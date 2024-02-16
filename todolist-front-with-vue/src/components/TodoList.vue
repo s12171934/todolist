@@ -90,7 +90,6 @@ export default {
 }
 
 body {
-  background-color: #f5f5f5;
   color: #444;
   font-family: "Poppins", sans-serif;
   display: flex;

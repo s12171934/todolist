@@ -2,18 +2,18 @@
   <body>
     <div class="wrapper">
       <div class="title">LOGIN FORM</div>
-      <form action="/login" method="post">
+      <form @submit.prevent="login">
         <div class="field">
-          <input name="email" type="text" required />
+          <input v-model="email" name="email" type="text" required />
           <label>이메일 주소</label>
         </div>
         <div class="field">
-          <input name="password" type="password" required />
+          <input v-model="password" name="password" type="password" required />
           <label>비밀번호</label>
         </div>
         <div class="content">
           <div class="checkbox">
-            <input name="rememberEmail" type="checkbox" id="remember-me" />
+            <input v-model="saveEmail" name="rememberEmail" type="checkbox" id="remember-me" />
             <label for="remember-me">이메일 주소 저장</label>
           </div>
         </div>
@@ -27,6 +27,35 @@
     </div>
   </body>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+      saveEmail: false,
+
+    }
+  },
+  methods: {
+    login(){
+      this.axios
+        .post('/api/login',{
+          email: this.email,
+          password: this.password,
+          saveEmail: this.saveEmail,
+        })
+        .then((res) => {
+          if(res.data === "success"){
+            this.$router.push({path: "/todos"})
+          }
+        })
+    }
+  }
+}
+</script>
+
 <style>
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
 * {

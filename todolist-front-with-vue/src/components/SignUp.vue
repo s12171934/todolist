@@ -2,11 +2,12 @@
   <div class="container">
     <div class="title">Sign Up</div>
     <div class="content">
-      <form action="/signup" method="post">
+      <form @submit.prevent="signup">
         <div class="user-details">
           <div class="input-box">
             <span class="details">이메일</span>
             <input
+              v-model="email"
               name="email"
               type="text"
               placeholder="이메일 주소를 입력하세요"
@@ -16,6 +17,7 @@
           <div class="input-box">
             <span class="details">이름</span>
             <input
+              v-model="name"
               name="name"
               type="text"
               placeholder="이름을 입력하세요"
@@ -25,6 +27,7 @@
           <div class="input-box">
             <span class="details">비밀번호</span>
             <input
+              v-model="password"
               name="password"
               type="password"
               placeholder="비밀번호를 입력하세요"
@@ -34,6 +37,7 @@
           <div class="input-box">
             <span class="details">비밀번호 확인</span>
             <input
+              v-model="passwordCheck"
               name="password2"
               type="password"
               placeholder="비밀번호를 확인해주세요"
@@ -48,6 +52,35 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      email: "",
+      name: "",
+      password: "",
+      passwordCheck: "",
+    };
+  },
+  methods: {
+    signup() {
+      this.axios.post("/api/login/signup", {
+        email: this.email,
+        name: this.name,
+        password: this.password,
+        passwordCheck: this.passwordCheck,
+      })
+      .then((res) => {
+        if(res.data === 'success'){
+          this.$router.push({path: '/login'})
+        }
+      });
+    },
+  },
+};
+</script>
+
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 /* *{
@@ -63,6 +96,7 @@ font-family: 'Poppins',sans-serif;
   padding: 25px 30px;
   border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  text-align: center;
 }
 .container .title {
   font-size: 25px;
