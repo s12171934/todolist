@@ -1,7 +1,7 @@
 <template>
   <li
-    @mousedown.left="$emit('update', todo.id)"
-    @contextmenu.prevent="$emit('delete', todo.id)"
+    @mousedown.left="$emit('update', todo)"
+    @contextmenu.prevent="$emit('delete', todo)"
     :key="todo"
     :id="todo.id"
     :class="todo.done ? 'completed' : ''"
