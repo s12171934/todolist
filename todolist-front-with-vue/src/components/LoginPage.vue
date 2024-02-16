@@ -25,6 +25,8 @@
         </div>
       </form>
     </div>
+
+    <div v-if="loginFail">로그인실패</div>
   </body>
 </template>
 
@@ -32,9 +34,10 @@
 export default {
   data() {
     return {
-      email: "",
+      email: this.$cookies.get('email'),
       password: "",
-      saveEmail: false,
+      saveEmail: this.$cookies.isKey('email'),
+      loginFail: false,
 
     }
   },
@@ -48,7 +51,10 @@ export default {
         })
         .then((res) => {
           if(res.data === "success"){
+            this.loginFail = false;
             this.$router.push({path: "/todos"})
+          } else{
+            this.loginFail = true;
           }
         })
     }

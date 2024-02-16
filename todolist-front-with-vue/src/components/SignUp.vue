@@ -51,6 +51,8 @@
       </form>
     </div>
   </div>
+
+  <div v-if="signupFail">회원가입 실패</div>
 </template>
 
 <script>
@@ -61,6 +63,7 @@ export default {
       name: "",
       password: "",
       passwordCheck: "",
+      signupFail: false,
     };
   },
   methods: {
@@ -73,7 +76,10 @@ export default {
       })
       .then((res) => {
         if(res.data === 'success'){
+          this.signupFail = false
           this.$router.push({path: '/login'})
+        } else{
+          this.signupFail = true
         }
       });
     },
